@@ -1,7 +1,7 @@
 # beam-profiling
 Short python script to enable easy profiling of laser beams using a CCD.
 
-This script estimates a laser beam's 1/e^2 radius by fitting intensity profile data to a Gaussian curve. The script uses curve_fit from scipy.optimize, which fits a user-defined function via least-squares regression. The fit is plotted so its suitability can be verified.
+This script estimates a laser beam's 1/e<sup>2</sup> radius by fitting intensity profile data to a Gaussian curve. The script uses curve_fit from scipy.optimize, which fits a user-defined function via least-squares regression. The fit is plotted so its suitability can be verified.
 
 Best results are obtained by imaging a beam head-on with a CCD, then gathering grayscale profile data using ImageJ along only the width of the beam (not the full image width). Curve fitting works best if the detector is not fully saturated at non-central points, so a neutral density filter might be necessary to reduce brightness on the CCD.
 
@@ -18,7 +18,7 @@ A max_cutoff value of 255 will be used if none is specified.
 **Parameter guesses to start least squares.**
 The script fits provided data to a curve of the form:
 
-I = I<sub>0</sub>exp(-2(x-x<sub>0</sub>)<sup>2</sup> / r<sub>0</sub><sup>2</sup>).
+I = I<sub>0</sub>exp(-2(x-x<sub>0</sub>)<sup>2</sup>/r<sub>0</sub><sup>2</sup>).
 
 The initial guesses for least squares are:
 * I<sub>0</sub> = full saturation value
