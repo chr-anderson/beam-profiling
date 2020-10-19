@@ -8,7 +8,7 @@ Best results are obtained by imaging a beam head-on with a CCD, then gathering g
 **Optional console arguments.**
 Extra arguments that can be passed to the interpreter are:
 1. csv file name or file path
-2. Cutoff for ignoring saturated values during curve fitting. See below formore information. Of course, it's best to just not saturate the CCD.
+2. Cutoff for ignoring saturated values during curve fitting. See below for more information. Of course, it's best to just not saturate the CCD.
 
 **Setting the max_cutoff value.**
 The max_cutoff value allows the user to list a saturation value as an additional argument from the console (255 for grayscale). If any data are at or above this value, they'll be removed before fitting a Gaussian curve. This lets the user avoid artificially flattening the fit just because the CCD sensitivity maxed out before getting to the center of the spot.
