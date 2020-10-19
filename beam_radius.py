@@ -41,6 +41,7 @@ try:
 except:
     max_cutoff = 255 # Change this to the desired cutoff or specify at console
 
+background = 0 # Enter your background value here
 x, y = [], [] # Lists for 1-D pixel positions and corresponding intensities
 # Reads csv, skipping rows with headers or non-numeric entries
 with open(file) as file:
@@ -54,13 +55,13 @@ with open(file) as file:
             skip = True
         if not skip:
             x.append(float(row[0]))
-            y.append(float(row[1]))
+            y.append(float(row[1]) - background)
         skip = False
 
 # Removing data values above max_cutoff
 del_idx = [] # List of indices to remove
 for index, yval in enumerate(y):
-    if yval >= max_cutoff:
+    if yval >= max_cutoff - background:
         del_idx.append(index)
 x = [x for i, x in enumerate(x) if i not in del_idx] # removing items at...
 y = [y for i, y in enumerate(y) if i not in del_idx]# flagged indices
@@ -84,11 +85,11 @@ print('Estimated beam radius is %.2f' % (popt[2]))
 
 plt.figure(figsize = (8, 6))
 plt.plot(x, y, 'k.', label='Data')
-plt.plot(np.arange(max(x)), Gauss(np.arange(max(x)), *popt), 'b-', label='Fit')
+plt.plot(np.arange(max(x), step = 0.01), Gauss(np.arange(max(x), step = 0.01), *popt), 'b-', label='Fit')
 plt.legend(fontsize = 14)
 plt.xticks(fontsize = 14)
 plt.yticks(fontsize = 14)
-diam_width = np.arange(popt[1] - popt[2], popt[1] + popt[2])
+diam_width = np.arange(popt[1] - popt[2], popt[1] + popt[2], step = 0.01)
 # Regions that would fall within the beam radius are shaded light blue:
 plt.fill_between(diam_width, Gauss(diam_width, *popt), alpha = 0.3)
 plt.figtext(0.5, 0.025, r'$\frac{1}{e^2}$ beam radius = %.2f' % (popt[2]),
